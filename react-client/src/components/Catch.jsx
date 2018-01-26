@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import CaughtPokemon from '../components/CaughtPokemon.jsx';
 
 class Welcome extends React.Component {
 
@@ -16,27 +17,40 @@ class Welcome extends React.Component {
 
   handleChange(event) {
     this.setState({
-      toCatch: event.target.value
+      pokemonToCatch: event.target.value
     });
   }
 
   handleClick(){
     let pokemonToCatch = this.state.pokemonToCatch;
+    let caughtPokemon = this.state.caughtPokemon;
     let context = this;
     $.ajax({
       url: `pokemon/${pokemonToCatch}`,
       method: 'GET',
       contentType: 'application/json',
-      success: function(pokemon) {
+      success: function(sprite) {
+        const newPokemon = {
+          pokemonName: pokemonToCatch,
+          sprite: sprite
+        };
 
+        context.setState({
+          caughtPokemon: [...caughtPokemon, newPokemon]
+        });
       },
       fail: function(err) {
-        throw new Error('unable to find pokemon');
+        throw new Error('Unable to find pokemon');
       }
     });
   }
 
   render () {
+    const rows = this.state.caughtPokemon.map((pokemon, index) => {
+              return (
+                <CaughtPokemon pokemon={pokemon} key={index}/>
+              );
+            });
     return (
       <div>
         <h3>Gotta catch 'em all!</h3>
@@ -44,6 +58,7 @@ class Welcome extends React.Component {
         <form>
           <input type="text" onChange={this.handleChange}></input>
           <button type="button" onClick={this.handleClick}>Catch</button>
+          {rows}
         </form>
       </div>
     );

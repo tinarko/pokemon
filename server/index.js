@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var $ = require('jquery');
-
+var fetchUrl = require('fetch').fetchUrl;
 
 var pokemons = require('../server/queries/pokemons.js');
 var trainers = require('../server/queries/trainers.js');
@@ -14,19 +13,13 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.get('/pokemon/:pokemonToCatch', function (req, res) {
   const pokemonToCatch = req.params.pokemonToCatch;
-  console.log('searching for',pokemonToCatch);
-  console.log(Object.keys($))
-  $.ajax({
-    url: `http://pokeapi.co/api/v2/pokemon/${pokemonToCatch}`,
-    method: 'GET',
-    contentType: 'application/json',
-    success: function(pokemonData) {
-      console.log(pokemonData);
-      res.send(pokemonData)
-    },
-    fail: function(err) {
-      throw new Error('unable to find pokemon from pokeAPI')
+  const url = `http://pokeapi.co/api/v2/pokemon/${pokemonToCatch}`;
+  fetchUrl(url, (err, meta, body) => {
+    if(err) {
+      throw new Error('cannot find pokemon', err);
     }
+    const sprite = JSON.parse(body).sprites.front_default;
+    res.send(sprite);
   });
 });
 
