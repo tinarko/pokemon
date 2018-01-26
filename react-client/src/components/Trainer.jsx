@@ -1,13 +1,14 @@
 import React from 'react';
-import Catch from '../components/Catch.jsx';
+import CapturePokemon from '../components/CapturePokemon.jsx';
+import _ from 'lodash/fp';
 
-class Welcome extends React.Component {
+class Trainer extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      name: 'tina',
-      submitted: true
+      name: null,
+      submitted: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,7 +16,7 @@ class Welcome extends React.Component {
 
   handleChange(event) {
     this.setState({
-      name: event.target.value
+      name: _.upperFirst(event.target.value)
     });
   }
 
@@ -38,7 +39,7 @@ class Welcome extends React.Component {
       return (
         <div>
           <h2>Welcome, Trainer {this.state.name}!</h2>
-          <Catch />
+          <CapturePokemon />
         </div>
       );
     }
@@ -46,4 +47,4 @@ class Welcome extends React.Component {
 
 }
 
-export default Welcome;
+export default Trainer;

@@ -18,8 +18,13 @@ app.get('/pokemon/:pokemonToCatch', function (req, res) {
     if(err) {
       throw new Error('cannot find pokemon', err);
     }
-    const sprite = JSON.parse(body).sprites.front_default;
-    res.send(sprite);
+    const data = JSON.parse(body);
+    console.log(data);
+    if (data.sprites) {
+      res.send(data.sprites.front_default);
+    } else {
+      res.send('');
+    }
   });
 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import CaughtPokemon from '../components/CaughtPokemon.jsx';
 
-class Welcome extends React.Component {
+class CapturePokemon extends React.Component {
 
   constructor(props) {
     super(props);
@@ -66,4 +66,4 @@ class Welcome extends React.Component {
 
 }
 
-export default Welcome;
+export default CapturePokemon;
