@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {catchPokemon, setPokemon} from '../actions/catchPokemon.js';
+import {addPokemonToState, updateInputValueOnState} from '../actions/catchPokemon.js';
 
 import CaughtPokemon from '../components/CaughtPokemon.jsx';
 
@@ -14,7 +14,7 @@ class CatchPokemon extends React.Component {
   }
 
   handleChange(event) {
-    this.props.setPokemon(event.target.value);
+    this.props.updateInputValueOnState(event.target.value);
   }
 
   handleClick(){
@@ -27,18 +27,14 @@ class CatchPokemon extends React.Component {
           pokemonName: this.props.pokemonToCatch,
           sprite: data.sprite
         };
-        console.log(newPokemon);
-        this.props.catchPokemon(newPokemon);
-        this.displayCaughtPokemon();
+        this.props.addPokemonToState(newPokemon);
     }).catch(err => {
       throw new Error('didnt set pokemon correctly on props', err);
     })
   }
 
   displayCaughtPokemon() {
-    console.log('display')
     return this.props.caughtPokemon.map((pokemon, index) => {
-      console.log('pokemon', pokemon)
       return (
         <CaughtPokemon pokemon={pokemon} key={index}/>
       );
@@ -51,9 +47,9 @@ class CatchPokemon extends React.Component {
         <h3>Gotta catch 'em all!</h3>
         <p>Which pokemon would you like to catch?</p>
         <form>
-          <input type="text" onChange={this.handleChange}></input>
+          <input type="text" onChange={this.handleChange} value={this.props.pokemonToCatch}></input>
           <button type="button" onClick={this.handleClick}>Catch</button>
-          {this.displayCaughtPokemon}
+          {this.displayCaughtPokemon()}
         </form>
       </div>
     );
@@ -69,11 +65,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setPokemon: (pokemonName) => {
-      dispatch(setPokemon(pokemonName));
+    updateInputValueOnState: (pokemonName) => {
+      dispatch(updateInputValueOnState(pokemonName));
     },
-    catchPokemon: (newPokemon) => {
-      dispatch(catchPokemon(newPokemon));
+    addPokemonToState: (newPokemon) => {
+      dispatch(addPokemonToState(newPokemon));
     }
   }
 }

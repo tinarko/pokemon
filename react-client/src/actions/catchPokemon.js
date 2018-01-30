@@ -1,13 +1,13 @@
-export const catchPokemon = (newPokemon) => {
+export const addPokemonToState = (newPokemon) => {
   return {
-    type: 'CATCH_POKEMON',
+    type: 'ADD_POKEMON_TO_STATE',
     payload: newPokemon
   };
 };
 
-export const setPokemon = (pokemonName) => {
+export const updateInputValueOnState = (pokemonName) => {
   return {
-    type: 'SET_POKEMON',
+    type: 'UPDATE_INPUT_VALUE_ON_STATE',
     payload: pokemonName
   }
 };

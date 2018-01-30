@@ -3,11 +3,12 @@ export default function (state = {
   caughtPokemon: []
 }, action) {
   switch (action.type) {
-    case 'SET_POKEMON':
+    case 'UPDATE_INPUT_VALUE_ON_STATE':
       return {
+        caughtPokemon: state.caughtPokemon || [],
         pokemonToCatch: action.payload
-    };
-    case 'CATCH_POKEMON':
+      };
+    case 'ADD_POKEMON_TO_STATE':
       const caughtPokemon = state.caughtPokemon || [];
       return {
         caughtPokemon: [...caughtPokemon,
