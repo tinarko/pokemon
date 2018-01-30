@@ -1,14 +1,16 @@
 import React from 'react';
-import CapturePokemon from '../components/CapturePokemon.jsx';
+import {connect} from 'react-redux';
 import _ from 'lodash/fp';
+
+import CatchPokemon from '../components/CatchPokemon.jsx';
 
 class Trainer extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      name: null,
-      submitted: false
+      name: 'tina',
+      submitted: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,7 +41,7 @@ class Trainer extends React.Component {
       return (
         <div>
           <h2>Welcome, Trainer {this.state.name}!</h2>
-          <CapturePokemon />
+          <CatchPokemon />
         </div>
       );
     }
@@ -47,4 +49,11 @@ class Trainer extends React.Component {
 
 }
 
-export default Trainer;
+function mapStateToProps(state) {
+  return {
+    trainerName: state.name,
+    trainerSubmitted: state.submitted
+  };
+}
+
+export default connect(mapStateToProps)(Trainer);

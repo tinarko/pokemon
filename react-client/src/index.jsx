@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Trainer from './components/Trainer.jsx';
+import {Provider} from 'react-redux';
+import store from '../src/store.js';
 
+import Trainer from './components/Trainer.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,4 +19,7 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>, document.getElementById('app'));

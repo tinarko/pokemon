@@ -1,8 +1,10 @@
 import React from 'react';
-import $ from 'jquery';
+import {connect} from 'react-redux';
+import catchPokemon from '../actions/catchPokemon.js';
+
 import CaughtPokemon from '../components/CaughtPokemon.jsx';
 
-class CapturePokemon extends React.Component {
+class CatchPokemon extends React.Component {
 
   constructor(props) {
     super(props);
@@ -22,27 +24,22 @@ class CapturePokemon extends React.Component {
   }
 
   handleClick(){
-    let pokemonToCatch = this.state.pokemonToCatch;
-    let caughtPokemon = this.state.caughtPokemon;
-    let context = this;
-    $.ajax({
-      url: `pokemon/${pokemonToCatch}`,
-      method: 'GET',
-      contentType: 'application/json',
-      success: function(sprite) {
+    const {pokemonToCatch, caughtPokemon} = this.state;
+    const url = `pokemon/${pokemonToCatch}`;
+    fetch(url).then(
+      (res) => {
+        return res.json();
+      }).then(data => {
         const newPokemon = {
           pokemonName: pokemonToCatch,
-          sprite: sprite
+          sprite: data.sprite
         };
-
-        context.setState({
+        this.setState({
           caughtPokemon: [...caughtPokemon, newPokemon]
         });
-      },
-      fail: function(err) {
-        throw new Error('Unable to find pokemon');
-      }
-    });
+    }).catch(err => {
+      throw new Error('didnt set pokemon correctly on state', err);
+    })
   }
 
   render () {
@@ -63,7 +60,21 @@ class CapturePokemon extends React.Component {
       </div>
     );
   }
-
 }
 
-export default CapturePokemon;
+function mapStateToProps(state) {
+  return {
+    pokemonToCatch: state.pokemonToCatch,
+    caughtPokemon: state.caughtPokemon
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    catchPokemon: (pokemonName) => {
+      dispatch(catchPokemon(pokemonName));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CatchPokemon);

@@ -16,12 +16,13 @@ app.get('/pokemon/:pokemonToCatch', function (req, res) {
   const url = `http://pokeapi.co/api/v2/pokemon/${pokemonToCatch}`;
   fetchUrl(url, (err, meta, body) => {
     if(err) {
-      throw new Error('cannot find pokemon', err);
+      throw new Error('cannot find pokemon. did you spell the name correctly?', err);
     }
     const data = JSON.parse(body);
-    console.log(data);
     if (data.sprites) {
-      res.send(data.sprites.front_default);
+      res.status(200).send({
+        sprite: data.sprites.front_default
+      });
     } else {
       res.send('');
     }
