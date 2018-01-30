@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {addPokemonToState, updateInputValueOnState} from '../actions/catchPokemon.js';
+import {addPokemonToState, updateInputValueOnState} from '../../actions/catchPokemon.js';
 
-import CaughtPokemon from '../components/CaughtPokemon.jsx';
+import CaughtPokemon from '../CaughtPokemon/CaughtPokemon.jsx';
 
-class CatchPokemon extends React.Component {
+export class CatchPokemon extends React.Component {
 
   constructor(props) {
     super(props);
@@ -34,7 +34,8 @@ class CatchPokemon extends React.Component {
   }
 
   displayCaughtPokemon() {
-    return this.props.caughtPokemon.map((pokemon, index) => {
+    const caughtPokemon = this.props.caughtPokemon || [];
+    return caughtPokemon.map((pokemon, index) => {
       return (
         <CaughtPokemon pokemon={pokemon} key={index}/>
       );
