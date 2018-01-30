@@ -1,6 +1,13 @@
-export default function (pokemonName) {
+export const catchPokemon = (newPokemon) => {
   return {
     type: 'CATCH_POKEMON',
-    payload: pokemonName
+    payload: newPokemon
   };
-}
+};
+
+export const setPokemon = (pokemonName) => {
+  return {
+    type: 'SET_POKEMON',
+    payload: pokemonName
+  }
+};

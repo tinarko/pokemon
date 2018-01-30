@@ -15,5 +15,4 @@ class CaughtPokemon extends React.Component {
   }
 }
 
-
 export default CaughtPokemon;

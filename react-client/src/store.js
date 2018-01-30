@@ -1,11 +1,11 @@
 import {createStore} from 'redux';
 import {combineReducers} from 'redux';
 
-import catchPokemon from './reducers/catchPokemon.js';
+import pokemon from './reducers/pokemon.js';
 
 
 const allReducers = combineReducers({
-  catchPokemon
+  pokemon
 });
 
 export default createStore(allReducers,
