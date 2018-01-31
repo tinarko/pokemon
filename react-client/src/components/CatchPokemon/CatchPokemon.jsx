@@ -1,10 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {addPokemonToState, updateInputValueOnState} from '../../actions/catchPokemon.js';
-
 import CaughtPokemon from '../CaughtPokemon/CaughtPokemon.jsx';
 
-export class CatchPokemon extends React.Component {
+export default class CatchPokemon extends React.Component {
 
   constructor(props) {
     super(props);
@@ -14,7 +11,8 @@ export class CatchPokemon extends React.Component {
   }
 
   handleChange(event) {
-    this.props.updateInputValueOnState(event.target.value);
+    const { updateInputValueOnState = () => {}} = this.props;
+    updateInputValueOnState(event.target.value);
   }
 
   handleClick(){
@@ -56,23 +54,3 @@ export class CatchPokemon extends React.Component {
     );
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    pokemonToCatch: state.pokemon.pokemonToCatch,
-    caughtPokemon: state.pokemon.caughtPokemon
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    updateInputValueOnState: (pokemonName) => {
-      dispatch(updateInputValueOnState(pokemonName));
-    },
-    addPokemonToState: (newPokemon) => {
-      dispatch(addPokemonToState(newPokemon));
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CatchPokemon);

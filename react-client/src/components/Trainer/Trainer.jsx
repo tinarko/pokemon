@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash/fp';
 
-import CatchPokemon from '../CatchPokemon/CatchPokemon.jsx';
+import CatchPokemon from '../CatchPokemon';
 
 class Trainer extends React.Component {
 
