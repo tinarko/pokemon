@@ -27,7 +27,7 @@ export default class CatchPokemon extends React.Component {
         };
         this.props.addPokemonToState(newPokemon);
     }).catch(err => {
-      throw new Error('didnt set pokemon correctly on props', err);
+      throw new Error('Did not set pokemon correctly on props', err);
     })
   }
 

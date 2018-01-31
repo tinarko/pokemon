@@ -36,12 +36,12 @@ describe('<CatchPokemon/>', () => {
       });
     });
     describe('handleClick', () => {
-      global.fetch = jest.fn().mockReturnValue(Promise.resolve({}));
       it('fetches pokemon data when "Catch" button is clicked', () => {
+        global.fetch = jest.fn().mockReturnValue(Promise.resolve());
         const pokemonName = 'clefable';
         const component = shallow(<CatchPokemon pokemonToCatch={pokemonName}/>);
         component.find('button').simulate('click');
-      expect(global.fetch).toHaveBeenCalledWith(`pokemon/${pokemonName}`);
+        expect(global.fetch).toHaveBeenCalledWith(`pokemon/${pokemonName}`);
       });
     });
     describe('displayCaughtPokemon', () => {
