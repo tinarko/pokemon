@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import store from '../src/store.js';
 
-import Trainer from './components/Trainer/Trainer.jsx';
+import Trainer from './components/Trainer';
 
 class App extends React.Component {
   constructor(props) {

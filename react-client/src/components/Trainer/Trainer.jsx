@@ -1,10 +1,9 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import _ from 'lodash/fp';
 
 import CatchPokemon from '../CatchPokemon';
 
-class Trainer extends React.Component {
+export default class Trainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -46,14 +45,4 @@ class Trainer extends React.Component {
       );
     }
   }
-
 }
-
-function mapStateToProps(state) {
-  return {
-    trainerName: state.name,
-    trainerSubmitted: state.submitted
-  };
-}
-
-export default connect(mapStateToProps)(Trainer);
