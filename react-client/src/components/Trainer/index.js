@@ -1,11 +1,23 @@
 import {connect} from 'react-redux';
 import Trainer from '../Trainer/Trainer.jsx';
+import {setTrainer, updateTrainerOnState} from "../../actions/updateTrainer";
 
 function mapStateToProps(state) {
   return {
-    trainerName: state.name,
-    trainerSubmitted: state.submitted
+    trainerName: state.trainers.name,
+    trainerSubmitted: state.trainers.trainerSubmitted
   };
 }
 
-export default connect(mapStateToProps)(Trainer);
+function mapDispatchToProps(dispatch) {
+  return {
+    setTrainer: () => {
+      dispatch(setTrainer());
+    },
+    updateTrainerOnState: (trainerName) => {
+      dispatch(updateTrainerOnState(trainerName));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Trainer);

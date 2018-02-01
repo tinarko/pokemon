@@ -7,26 +7,22 @@ export default class Trainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      name: null,
-      submitted: false
-    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({
-      name: _.upperFirst(event.target.value)
-    });
+    const { updateTrainerOnState = () => {}} = this.props;
+    updateTrainerOnState(_.upperFirst(event.target.value));
   }
 
   handleSubmit() {
-    this.setState({submitted: true});
+    const { setTrainer = () => {}} = this.props;
+    setTrainer();
   }
 
   render () {
-    if (!this.state.submitted) {
+    if (!this.props.trainerSubmitted) {
       return (
         <div>
           <h4>What is your name?</h4>
@@ -39,7 +35,7 @@ export default class Trainer extends React.Component {
     } else {
       return (
         <div>
-          <h2>Welcome, Trainer {this.state.name}!</h2>
+          <h2>Welcome, Trainer {this.props.trainerName}!</h2>
           <CatchPokemon />
         </div>
       );
