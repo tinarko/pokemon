@@ -4,7 +4,7 @@ import {setTrainer, updateTrainerOnState} from "../../actions/updateTrainer";
 
 function mapStateToProps(state) {
   return {
-    trainerName: state.trainers.name,
+    trainerName: state.trainers.trainerName,
     trainerSubmitted: state.trainers.trainerSubmitted
   };
 }

@@ -12,11 +12,13 @@ export default class Trainer extends React.Component {
   }
 
   handleChange(event) {
+    console.log(this.props.trainerName)
     const { updateTrainerOnState = () => {}} = this.props;
     updateTrainerOnState(_.upperFirst(event.target.value));
   }
 
   handleSubmit() {
+    console.log(this.props.trainerName)
     const { setTrainer = () => {}} = this.props;
     setTrainer();
   }
