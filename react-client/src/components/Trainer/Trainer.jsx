@@ -8,8 +8,8 @@ export default class Trainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'tina',
-      submitted: true
+      name: null,
+      submitted: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,7 +29,7 @@ export default class Trainer extends React.Component {
     if (!this.state.submitted) {
       return (
         <div>
-          <h4> What is your name?</h4>
+          <h4>What is your name?</h4>
           <form>
             <input type="text" onChange={this.handleChange}></input>
             <button onClick={this.handleSubmit}>Submit</button>

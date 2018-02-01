@@ -17,18 +17,19 @@ export default class CatchPokemon extends React.Component {
 
   handleClick(){
     const url = `pokemon/${this.props.pokemonToCatch}`;
-    fetch(url).then(
-      (res) => {
+    fetch(url)
+      .then((res) => {
         return res.json();
-      }).then(data => {
+      })
+      .then((data) => {
         const newPokemon = {
           pokemonName: this.props.pokemonToCatch,
           sprite: data.sprite
         };
         this.props.addPokemonToState(newPokemon);
-    }).catch(err => {
+      }).catch(err => {
       throw new Error('Did not set pokemon correctly on props', err);
-    })
+      })
   }
 
   displayCaughtPokemon() {

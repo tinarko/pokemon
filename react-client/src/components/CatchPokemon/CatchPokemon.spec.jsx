@@ -21,7 +21,7 @@ describe('<CatchPokemon/>', () => {
   });
   describe('methods', () => {
     describe('handleChange', () => {
-      it('updates value on state when user is typing into form', () => {
+      it('calls updateInputValueOnState when user types pokemon name into form', () => {
         const updateInputValueOnState = jest.fn();
         const component = shallow(
           <CatchPokemon updateInputValueOnState={updateInputValueOnState}/>);
@@ -32,17 +32,53 @@ describe('<CatchPokemon/>', () => {
           }
         });
         expect(updateInputValueOnState).toHaveBeenCalled();
-        expect(updateInputValueOnState).toBeCalledWith(pokemonName);
+        expect(updateInputValueOnState).toHaveBeenCalledWith(pokemonName);
       });
     });
     describe('handleClick', () => {
-      it('fetches pokemon data when "Catch" button is clicked', () => {
-        global.fetch = jest.fn().mockReturnValue(Promise.resolve());
+      it('calls fetch when "Catch" button is clicked', () => {
         const pokemonName = 'clefable';
         const component = shallow(<CatchPokemon pokemonToCatch={pokemonName}/>);
+        global.fetch = jest.fn().mockReturnValue(Promise.resolve());
+
         component.find('button').simulate('click');
         expect(global.fetch).toHaveBeenCalledWith(`pokemon/${pokemonName}`);
       });
+      it('calls addPokemonToState when "Catch" button is clicked', () => {
+        const pokemonName = 'bulbasaur';
+        const data = {
+          sprite: 'bulbasaur.img'
+        };
+         const newPokemon = {
+            pokemonName: pokemonName,
+            sprite: data.sprite
+          };
+        const addPokemonToState = jest.fn();
+        const component = shallow(<CatchPokemon pokemonToCatch={pokemonName}/>);
+
+        const setDataAndAddPokemonToState = () => {
+          addPokemonToState(newPokemon);
+          expect(addPokemonToState).toHaveBeenCalled();
+          expect(addPokemonToState).toHaveBeenCalledWith(newPokemon);
+          return Promise.resolve();
+        };
+
+        const resJson = () => {
+          return {
+            json: () => {
+              return Promise.resolve(setDataAndAddPokemonToState(data));
+            }
+          };
+        };
+
+        global.fetch = jest.fn(() => {
+          return Promise.resolve(resJson().json());
+        });
+        component.find('button').simulate('click');
+        expect(global.fetch).toHaveBeenCalledWith(`pokemon/${pokemonName}`);
+        expect.assertions(3);
+      });
+
     });
     describe('displayCaughtPokemon', () => {
       it('displays no pokemon if none are caught', () => {

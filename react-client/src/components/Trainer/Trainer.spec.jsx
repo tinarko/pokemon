@@ -10,5 +10,9 @@ describe('<Trainer />', () => {
     it('renders without errors', () => {
       shallow(<Trainer />);
     });
+    it('asks what the trainer\'s name is if no name given', () => {
+      const container = shallow(<Trainer />);
+      expect(container.find('h4').text()).toEqual('What is your name?');
+    });
   });
 });

@@ -8,7 +8,7 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('<CaughtPokemon/>', () => {
   describe('renders properly', () => {
     const pokemon = {
-      sprite: 'pikachu.image',
+      sprite: 'pikachu.img',
       pokemonName: 'pikachu'
     };
     it('renders without errors', () => {
@@ -26,3 +26,4 @@ describe('<CaughtPokemon/>', () => {
     });
   });
 });
+
